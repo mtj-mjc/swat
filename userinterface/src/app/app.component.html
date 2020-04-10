@@ -1,0 +1,20 @@
+<div class="MenuBar">
+  <h1>G01 - Filialen-Bestellsystem</h1>
+  <div *ngIf="currentUser" class="Routes">
+    <div class="Routes">
+      <nav>
+        <a routerLink="/user"><button mat-button>User-Management</button></a>
+        <a routerLink="/order"><button mat-button>Order-Management</button></a>
+        <a routerLink="/product"><button mat-button>Product-Management</button></a>
+      </nav>
+    </div>
+  </div>
+</div>
+<div class="Content">
+  <router-outlet></router-outlet>
+</div>
+<div class="Footer">
+  <div class="FooterContent">
+    <span>Created by Flavio Lazzarini, Matej Mrnjec & Andr&eacute; Bussmann</span>
+  </div>
+</div>

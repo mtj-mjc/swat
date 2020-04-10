@@ -1,0 +1,8 @@
+FROM openjdk:11.0.2-jre-slim-stretch
+EXPOSE 5005
+
+# add jar to image
+COPY ./target/service.jar service.jar
+
+# Startup
+CMD java ${JAVA_OPTS} "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" -jar ./service.jar

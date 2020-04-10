@@ -1,0 +1,20 @@
+version: '3.2'
+
+networks:
+ backend:
+    external:
+      name: ${BACKEND_NET}
+
+services:
+
+  app:
+    image: $IMAGE_NAME
+    restart: always
+    networks:
+      - backend
+
+  mongodb:
+    image: hub.edu.abiz.ch/appe/system/mongodb:stable
+    restart: always
+    networks:
+      - backend

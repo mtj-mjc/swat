@@ -1,0 +1,53 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
+h1 {
+  margin-left: 16px;
+  margin-top: 16px;
+}
+
+.MenuBar * {
+  display: inline;
+}
+
+.Routes {
+  float: right;
+  margin-top: 8px;
+}
+
+.Routes button {
+  margin-right: 4px;
+}
+
+.Content {
+  width: 75%;
+  margin-top: 64px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 64px;
+}
+
+.Footer {
+  background-color: black;
+  color: white;
+  bottom: 0;
+  position: fixed;
+  padding: 12px 0;
+  width: 100%;
+  z-index: 999;
+}
+
+.FooterContent {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* responsive design */
+@media screen and (max-width: 440px) {
+  .Content {
+    width: 100%;
+  }
+}

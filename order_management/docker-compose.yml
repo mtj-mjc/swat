@@ -1,0 +1,14 @@
+version: '3.2'
+
+networks:
+ backend:
+    external:
+      name: ${BACKEND_NET}
+
+services:
+
+  app:
+    image: $IMAGE_NAME
+    restart: always
+    networks:
+      - backend

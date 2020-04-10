@@ -1,0 +1,8 @@
+/target/
+/.settings/
+/.classpath
+/.project
+.idea
+
+order_management\.iml
+docker-compose\.local\.yml

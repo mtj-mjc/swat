@@ -1,0 +1,22 @@
+version: '3.2'
+
+networks:
+  backend:
+    external:
+      name: ${BACKEND_NET}
+  frontend:
+    external:
+      name: web-gateway
+
+services:
+
+  app:
+    image: $IMAGE_NAME
+    restart: always
+    expose:
+      - "8090"
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+    networks:
+      - backend
+      - frontend

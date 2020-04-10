@@ -1,0 +1,122 @@
+version: '3.2'
+
+networks:
+  backend:
+    external:
+      name: ${BACKEND_NET}
+  frontend:
+    external:
+      name: web-gateway
+
+volumes:
+  portainer-data:
+
+services:
+  
+  bus:
+    image: hub.edu.abiz.ch/appe/system/message-bus:stable
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${VH_BUS}
+      - VIRTUAL_PORT=15672
+    networks:
+      - backend
+      - frontend
+
+  portainer:
+    image:  portainer/portainer:1.20.2
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer-data:/data
+    environment:
+      - VIRTUAL_HOST=${VH_PORTAINER}
+    restart: always
+    networks:
+      - frontend  
+
+  gateway-sample:
+    image: hub.edu.abiz.ch/appe/g01/g01-gateway:latest
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${VH_GATEWAY}
+    networks:
+      - backend
+      - frontend
+
+# ------------------ Order Management ------------------
+  order_management:
+    image: hub.edu.abiz.ch/appe/g01/g01-order_management:latest
+    restart: always
+    networks:
+      - backend
+
+  order_mongo:
+    container_name: order_mongo
+    image: hub.edu.abiz.ch/appe/system/mongodb:stable
+    restart: always
+    networks:
+      - backend
+  
+  order_mongoviewer:
+    container_name: order_mongoviewer
+    image: hub.edu.abiz.ch/appe/system/mongodb-viewer:stable
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${VH_DBVIEW}
+    networks:
+      - backend
+      - frontend
+    links:
+      - "order_mongo:order_mongo"
+
+# ------------------ User Management ------------------
+  user_management:
+    image: hub.edu.abiz.ch/appe/g01/g01-user_management:latest
+    restart: always
+    networks:
+      - backend
+
+  user_mongo:
+    container_name: user_mongo
+    image: hub.edu.abiz.ch/appe/system/mongodb:stable
+    restart: always
+    networks:
+      - backend
+  
+  user_mongoviewer:
+    container_name: user_mongoviewer
+    image: hub.edu.abiz.ch/appe/system/mongodb-viewer:stable
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${VH_DBVIEW}
+    networks:
+      - backend
+      - frontend
+    links:
+      - "user_mongo:user_mongo"
+
+# ------------------ Product Management ------------------
+  product_management:
+    image: hub.edu.abiz.ch/appe/g01/g01-product_management:latest
+    restart: always
+    networks:
+      - backend
+
+  product_mongo:
+    container_name: product_mongo
+    image: hub.edu.abiz.ch/appe/system/mongodb:stable
+    restart: always
+    networks:
+      - backend
+  
+  product_mongoviewer:
+    container_name: product_mongoviewer
+    image: hub.edu.abiz.ch/appe/system/mongodb-viewer:stable
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${VH_DBVIEW}
+    networks:
+      - backend
+      - frontend
+    links:
+      - "product_mongo:product_mongo"

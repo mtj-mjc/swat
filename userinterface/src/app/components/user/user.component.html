@@ -1,0 +1,44 @@
+<div class="form">
+  <mat-form-field>
+    <input matInput #firstname placeholder="Firstname" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput #lastname placeholder="Lastname" />
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput #username placeholder="Username" />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      #password
+      placeholder="Enter your password"
+      [type]="hide ? 'password' : 'text'"
+    />
+    <mat-icon matSuffix (click)="hide = !hide">{{
+      hide ? 'visibility_off' : 'visibility'
+    }}</mat-icon>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Group</mat-label>
+    <mat-select [(ngModel)]="groupid">
+      <mat-option *ngFor="let group of groups" [value]="group.id">
+        {{ group.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Store</mat-label>
+    <mat-select [(ngModel)]="storeid">
+      <mat-option *ngFor="let store of stores" [value]="store.id">
+        {{ store.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    mat-button
+    (click)="onSave(firstname.value, lastname.value, username.value, password.value)"
+  >
+    Save
+  </button>
+</div>

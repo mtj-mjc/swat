@@ -1,0 +1,29 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let order of orders">
+    <mat-expansion-panel-header>
+      <mat-panel-title> Bestellung {{ order.id }} </mat-panel-title>
+    </mat-expansion-panel-header>
+    <table matSort (matSortChange)="sortData($event)">
+      <tr>
+        <td>Customer: {{ order.customerid }}</td>
+      </tr>
+      <tr>
+        <td>Date: {{ order.date | date: 'd.MMMM.y - hh:mm:ss' }}</td>
+      </tr>
+      <tr>
+        <td>Filiale: {{ order.storeid }}</td>
+      </tr>
+      <tr>
+        <td>Produkte:</td>
+      </tr>
+      <tr *ngFor="let pos of order.positions">
+        <td class="product">- {{ pos.count }}x {{ pos.product.name }}</td>
+        <td class="price">{{ pos.product.price | number: '.2' }}</td>
+      </tr>
+      <tr *ngIf="order.positions.length > 0" id="total">
+        <td class="product">Total</td>
+        <td class="price">{{ calcTotal(order.positions) | number: '.2' }}</td>
+      </tr>
+    </table>
+  </mat-expansion-panel>
+</mat-accordion>

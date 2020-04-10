@@ -1,0 +1,7 @@
+micronaut:
+    application:
+        name: gateway
+    server:
+        port: 8090
+        cors:
+            enabled: true
