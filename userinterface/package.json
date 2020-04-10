@@ -1,6 +1,6 @@
 {
-  "name": "g01-userinterface",
-  "version": "0.0.0",
+  "name": "userinterface",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
