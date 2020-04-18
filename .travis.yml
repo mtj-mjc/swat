@@ -20,3 +20,5 @@ deploy:
     - "product_management/target/*service.jar"
     - "user_management/target/*service.jar"
   skip_cleanup: true
+  on:
+    tags: true
