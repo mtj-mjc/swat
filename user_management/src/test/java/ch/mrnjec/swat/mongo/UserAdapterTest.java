@@ -20,13 +20,13 @@ import static org.mockito.Mockito.*;
  * @author: Matej Mrnjec
  */
 class UserAdapterTest extends EntityAdapterTest<User>{
-    public final static String USERNAME_TEST = "testUser";
-    public final static String NAME_TEST = "Hans";
-    public final static String LASTNAME_TEST = "Peter";
-    public final static String PASSWORD_TEST = "Passwort";
-    public final static String GROUPID_TEST = "1";
-    public final static String STOREID_TEST = "1";
-    public final static String NOID = "000000000000000000000000";
+    public static final String NAME_TEST = "Hans";
+    public static final String LASTNAME_TEST = "Peter";
+    public static final String USERNAME_TEST = "testUser";
+    public static final String PASSWORD_TEST = "Passwort";
+    public static final String GROUPID_TEST = "1";
+    public static final String STOREID_TEST = "1";
+    public static final String NOID = "000000000000000000000000";
     public static final ObjectId TEST_ID = new ObjectId(NOID);
 
 
@@ -57,9 +57,7 @@ class UserAdapterTest extends EntityAdapterTest<User>{
     void getByUserNameFailsTest() throws IOException {
         // Test getByName Method in UserAdapter
         UserAdapter adapter = (UserAdapter) super.getAdapterForGetOneFailsTest();
-        assertThrows(NoSuchElementException.class, () -> {
-            adapter.getByUsername(USERNAME_TEST);
-        });
+        assertThrows(NoSuchElementException.class, () -> adapter.getByUsername(USERNAME_TEST));
     }
 
     /**
@@ -85,8 +83,6 @@ class UserAdapterTest extends EntityAdapterTest<User>{
 
         // Test update Method in UserAdapter
         UserAdapter adapter = new UserAdapter(mongoAdapter);
-        assertThrows(IOException.class, () -> {
-            adapter.update(getTestEntity());
-        });
+        assertThrows(IOException.class, () -> adapter.update(getTestEntity()));
     }
 }

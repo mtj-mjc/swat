@@ -1,7 +1,10 @@
 package ch.mrnjec.swat.mongo;
 
 import ch.mrnjec.swat.entities.User;
+import ch.mrnjec.swat.micro.Application;
 import com.mongodb.client.model.Filters;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
@@ -14,12 +17,13 @@ import java.util.NoSuchElementException;
  */
 public final class UserAdapter implements EntityAdapter<User>{
 
+    private static final Logger LOG = LogManager.getLogger(UserAdapter.class);
     // User Entity Fields which are saved in the Database
-    public final static String USERNAME_FIELD = "username";
+    public static final String USERNAME_FIELD = "username";
 
     private MongoAdapter<User> mongoAdapter;
 
-    UserAdapter(MongoAdapter mongoAdapter) {
+    UserAdapter(MongoAdapter<User> mongoAdapter) {
         this.mongoAdapter = mongoAdapter;
         this.mongoAdapter.changeCollection(MongoDbConfig.DATABASE, MongoDbConfig.USERS_COLLECTION);
     }
@@ -30,7 +34,7 @@ public final class UserAdapter implements EntityAdapter<User>{
     }
 
     @Override
-    public Boolean exists(User user){
+    public boolean exists(User user){
         try{
             getByUsername(user.getUsername());
         }
@@ -46,11 +50,11 @@ public final class UserAdapter implements EntityAdapter<User>{
      * @return User with the Username
      * @throws NoSuchElementException If no User is found
      */
-    public User getByUsername(String username) throws NoSuchElementException{
+    public User getByUsername(String username) {
         try {
             return this.mongoAdapter.getOne(Filters.eq(USERNAME_FIELD, username));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage());
             throw new NoSuchElementException(e.getMessage());
         }
     }

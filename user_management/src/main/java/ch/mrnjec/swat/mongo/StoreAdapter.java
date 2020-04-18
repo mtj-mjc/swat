@@ -14,7 +14,7 @@ public final class StoreAdapter implements EntityAdapterExtended<Store>{
 
     private MongoAdapter<Store> mongoAdapter;
 
-    StoreAdapter(MongoAdapter mongoAdapter) {
+    StoreAdapter(MongoAdapter<Store> mongoAdapter) {
         this.mongoAdapter = mongoAdapter;
         this.mongoAdapter.changeCollection(MongoDbConfig.DATABASE, MongoDbConfig.STORES_COLLECTION);
     }
@@ -25,7 +25,7 @@ public final class StoreAdapter implements EntityAdapterExtended<Store>{
     }
 
     @Override
-    public Boolean exists(Store store){
+    public boolean exists(Store store){
         try{
             getByName(store.getName());
         }

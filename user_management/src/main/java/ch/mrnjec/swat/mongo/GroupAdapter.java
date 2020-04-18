@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 public final class GroupAdapter implements EntityAdapterExtended<Group>{
     private MongoAdapter<Group> mongoAdapter;
 
-    GroupAdapter(MongoAdapter mongoAdapter) {
+    GroupAdapter(MongoAdapter<Group> mongoAdapter) {
         this.mongoAdapter = mongoAdapter;
         this.mongoAdapter.changeCollection(MongoDbConfig.DATABASE, MongoDbConfig.GROUPS_COLLECTION);
     }
@@ -28,7 +28,7 @@ public final class GroupAdapter implements EntityAdapterExtended<Group>{
      * @param group Group which has to be checked
      * @return If found then true else false
      */
-    public Boolean exists(Group group){
+    public boolean exists(Group group){
         try{
             getByName(group.getName());
         }

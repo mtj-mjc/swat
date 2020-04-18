@@ -10,8 +10,8 @@ import org.bson.types.ObjectId;
  * @author: Matej Mrnjec
  */
 class StoreAdapterTest extends EntityAdapterExtendedTest<Store> {
-    public final static ObjectId ID_TEST = new ObjectId();
-    public final static String NAME_TEST = "Horw";
+    public static final ObjectId ID_TEST = new ObjectId();
+    public static final String NAME_TEST = "Horw";
 
     @Override
     ObjectId getId() {

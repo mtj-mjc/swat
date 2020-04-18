@@ -10,8 +10,8 @@ import org.bson.types.ObjectId;
  * @author: matej
  */
 public class GroupAdapterTest extends EntityAdapterExtendedTest<Group> {
-    public final static ObjectId ID_TEST = new ObjectId();
-    public final static String NAME_TEST = "Admin";
+    public static final ObjectId ID_TEST = new ObjectId();
+    public static final String NAME_TEST = "Admin";
 
     @Override
     ObjectId getId() {

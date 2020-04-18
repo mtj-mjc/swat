@@ -128,7 +128,7 @@ public final class Service implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
-
+    public void close() {
+        throw(new UnsupportedOperationException());
     }
 }

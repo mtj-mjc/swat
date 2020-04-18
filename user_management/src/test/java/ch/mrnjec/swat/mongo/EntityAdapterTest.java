@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  * @since: 21.05.2019
  * @author: matej
  */
-abstract public class EntityAdapterTest<T extends Entity> {
+public abstract class EntityAdapterTest<T extends Entity> {
     /**
      * Gets a instance of Entity for Tests
      * @return
@@ -178,9 +178,7 @@ abstract public class EntityAdapterTest<T extends Entity> {
 
         // Test create Method in UserAdapter
         EntityAdapter<T> adapter = getTestEntityAdapter(mongoAdapter);
-        assertThrows(IOException.class, () -> {
-            adapter.create(getTestEntity());
-        });
+        assertThrows(IOException.class, () -> adapter.create(getTestEntity()));
     }
 
     /**
