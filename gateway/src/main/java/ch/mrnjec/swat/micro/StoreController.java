@@ -22,12 +22,13 @@ public class StoreController {
     }
 
     @Get("/")
-    public HttpResponse<?> getOrderList() {
+    public HttpResponse<Object> getOrderList() {
         try {
             ServiceCaller caller = new ServiceCaller();
             return caller.callService(rabbitMQCommunication, ROUTE_STORE_LIST, "");
         } catch (Exception e) {
-            return HttpResponse.serverError("Ein Fehler ist  aufgetreten");
+            LOG.error(e.getMessage());
+            return HttpResponse.serverError(ErrorMessage.GENERIC_ERROR.getMessage());
         }
     }
 

@@ -18,17 +18,18 @@ import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @MicronautTest
 class OrderControllerTest {
-
+    private static final String API = "/api/v1/order/";
+    private static final String INPUT = "{\"id\":1,\"products\":[{\"id\":1,\"name\":\"Product 1\",\"price\":3.5,\"description\":\"Description\",\"category\":{\"id\":1,\"name\":\"elektronik\"}},{\"id\":2,\"name\":\"Product 2\",\"price\":3.5,\"description\":\"Description\",\"category\":{\"id\":1,\"name\":\"elektronik\"}}],\"username\":\"3\",\"customerId\":\"4\",\"time\":\"20.03.2019 9:30\"}";
 
     @Inject
     Communication communication;
@@ -38,21 +39,21 @@ class OrderControllerTest {
     RxHttpClient client;
 
     @Test
-    void testGetOrders() throws IOException, TimeoutException, InterruptedException {
+    void testGetOrders() throws IOException, InterruptedException {
         Response response = new Response(Status.OK, "orders", "");
         ObjectMapper mapper = new ObjectMapper();
         String responseString = mapper.writeValueAsString(response);
         when(communication.syncCall(eq("order.list"), anyString())).thenReturn(responseString);
-        final HttpRequest<String> request = HttpRequest.GET("/api/v1/order/");
+        final HttpRequest<String> request = HttpRequest.GET(API);
         final String body = client.toBlocking().retrieve(request);
         assertThat(body).isEqualTo("orders");
     }
 
     @Test
-    void testOrderCreateException() throws IOException, InterruptedException, TimeoutException {
+    void testOrderCreateException() throws IOException, InterruptedException {
         when(communication.syncCall(anyString(), anyString())).thenThrow(new IOException("Test Error"));
-        String input = "{\"id\":1,\"products\":[{\"id\":1,\"name\":\"Product 1\",\"price\":3.5,\"description\":\"Description\",\"category\":{\"id\":1,\"name\":\"elektronik\"}},{\"id\":2,\"name\":\"Product 2\",\"price\":3.5,\"description\":\"Description\",\"category\":{\"id\":1,\"name\":\"elektronik\"}}],\"username\":\"3\",\"customerId\":\"4\",\"time\":\"20.03.2019 9:30\"}";
-        final HttpRequest<String> request = HttpRequest.PUT("/api/v1/order/", input);
+        String input = INPUT;
+        final HttpRequest<String> request = HttpRequest.PUT(API, input);
         try {
             client.toBlocking().exchange(request);
             fail("should have thrown error");
@@ -62,15 +63,15 @@ class OrderControllerTest {
     }
 
     @Test
-    void testOrderCreateProductsUnavailable() throws IOException, InterruptedException, TimeoutException {
+    void testOrderCreateProductsUnavailable() throws IOException, InterruptedException {
         String data = "Products unavaliable";
         Response response = new Response(Status.PRODUCTS_NOT_AVAILABLE, data, "");
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = mapper.writeValueAsString(response);
 
         when(communication.syncCall(anyString(), anyString())).thenReturn(jsonResponse);
-        String input = "{\"id\":1,\"products\":[{\"id\":1,\"name\":\"Product 1\",\"price\":3.5,\"description\":\"Description\",\"category\":{\"id\":1,\"name\":\"elektronik\"}},{\"id\":2,\"name\":\"Product 2\",\"price\":3.5,\"description\":\"Description\",\"category\":{\"id\":1,\"name\":\"elektronik\"}}],\"username\":\"3\",\"customerId\":\"4\",\"time\":\"20.03.2019 9:30\"}";
-        final HttpRequest<String> request = HttpRequest.PUT("/api/v1/order/", input);
+        String input = INPUT;
+        final HttpRequest<String> request = HttpRequest.PUT(API, input);
         try {
             client.toBlocking().exchange(request);
             fail("no exception thrown");
@@ -81,14 +82,14 @@ class OrderControllerTest {
     }
 
     @Test
-    void testOrderCreate() throws IOException, InterruptedException, TimeoutException {
+    void testOrderCreate() throws IOException, InterruptedException {
         String data = "Order erfolgreich erstellt";
         Response response = new Response(Status.OK, data, "");
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = mapper.writeValueAsString(response);
         when(communication.syncCall(anyString(), anyString())).thenReturn(jsonResponse);
-        String input = "{\"id\":1,\"products\":[{\"id\":1,\"name\":\"Product 1\",\"price\":3.5,\"description\":\"Description\",\"category\":{\"id\":1,\"name\":\"elektronik\"}},{\"id\":2,\"name\":\"Product 2\",\"price\":3.5,\"description\":\"Description\",\"category\":{\"id\":1,\"name\":\"elektronik\"}}],\"username\":\"3\",\"customerId\":\"4\",\"time\":\"20.03.2019 9:30\"}";
-        final HttpRequest<String> request = HttpRequest.PUT("/api/v1/order/", input);
+        String input = INPUT;
+        final HttpRequest<String> request = HttpRequest.PUT(API, input);
         try {
             final HttpResponse<String> httpResponse = client.toBlocking().exchange(request);
             assertThat(httpResponse.getStatus().getCode()).isEqualTo(200);
@@ -98,13 +99,13 @@ class OrderControllerTest {
     }
 
     @Test
-    void testOrderGetCompletedByUser() throws IOException, TimeoutException, InterruptedException {
+    void testOrderGetCompletedByUser() throws IOException, InterruptedException {
         String orders = "";
         Response response = new Response(Status.OK, orders, "");
         ObjectMapper mapper = new ObjectMapper();
         String jsonResponse = mapper.writeValueAsString(response);
         when(communication.syncCall(anyString(), anyString())).thenReturn(jsonResponse);
-        final HttpRequest<String> request = HttpRequest.GET("/api/v1/order/user?username=user");
+        final HttpRequest<String> request = HttpRequest.GET(API + "/user?username=user");
         try {
             final HttpResponse<String> httpResponse = client.toBlocking().exchange(request);
             assertThat(httpResponse.getStatus().getCode()).isEqualTo(200);

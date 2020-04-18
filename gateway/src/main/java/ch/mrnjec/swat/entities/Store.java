@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class Store {
 
-    public final static String NOID = "-1";
+    public static final String NOID = "-1";
     private String id;
     private String name;
 

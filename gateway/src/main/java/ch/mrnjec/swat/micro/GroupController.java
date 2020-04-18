@@ -5,9 +5,11 @@ import ch.mrnjec.swat.bus.Response;
 import ch.mrnjec.swat.bus.Status;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.*;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 @Controller("/api/v1/group")
@@ -22,7 +24,7 @@ public class GroupController {
     GroupController(Communication communication) { this.communication = communication; }
 
     @Get("/")
-    public HttpResponse<?> getGroupList() {
+    public HttpResponse<Object> getGroupList() {
         try {
             String json = communication.syncCall(ROUTE_GROUP_LIST, "");
             ObjectMapper mapper = new ObjectMapper();
@@ -30,14 +32,15 @@ public class GroupController {
             if (response.getStatus() == Status.OK) {
                 return HttpResponse.ok(response.getData());
             } else {
-                return HttpResponse.serverError("Internal Server error");
+                return HttpResponse.serverError(ErrorMessage.INTERNAL_SERVER_ERROR.getMessage());
             }
         } catch (IOException e) {
             LOG.error(e.getMessage());
-            return HttpResponse.serverError("Internal Server error");
+            return HttpResponse.serverError(ErrorMessage.INTERNAL_SERVER_ERROR.getMessage());
         } catch (InterruptedException e) {
             LOG.error(e.getMessage());
-            return HttpResponse.serverError("Internal Server error");
+            Thread.currentThread().interrupt();
+            return HttpResponse.serverError(ErrorMessage.INTERNAL_SERVER_ERROR.getMessage());
         }
     }
 

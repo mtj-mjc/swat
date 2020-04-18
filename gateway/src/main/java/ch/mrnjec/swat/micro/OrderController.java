@@ -43,24 +43,25 @@ public class OrderController {
      */
     @Get("/{id}")
     public Order get(final long id) {
+        // ToDo: Get Order by ID
         final Order order = new Order();
-        LOG.info("REST: Student {} {}.", id, (order != null ? "geliefert" : "nicht gefunden"));
+        LOG.info("REST: Student {} {}.", id, "geliefert");
         return order;
     }
 
     @Get("/")
-    public HttpResponse<?> getOrderList() {
+    public HttpResponse<Object> getOrderList() {
         try {
             OrderFilter filter = new OrderFilter(OrderFilterField.NO_FILTER, "");
             ServiceCaller caller = new ServiceCaller();
             return caller.callService(communication, filter, ROUTE_ORDER_LIST);
         } catch (Exception e) {
-            return HttpResponse.serverError("Ein Fehler ist  aufgetreten");
+            return HttpResponse.serverError(ErrorMessage.GENERIC_ERROR.getMessage());
         }
     }
 
     @Get("/user{?username,state}")
-    public HttpResponse<?> getOrderListByUser(final @Nullable String username, final Optional<Integer> state) {
+    public HttpResponse<Object> getOrderListByUser(final @Nullable String username, final Optional<Integer> state) {
         try {
             OrderFilter filter;
             if(!state.isEmpty() && state.get() == 0) {
@@ -72,24 +73,24 @@ public class OrderController {
             ServiceCaller caller = new ServiceCaller();
             return caller.callService(communication, filter, ROUTE_ORDER_LIST);
         } catch (Exception e) {
-            return HttpResponse.serverError("Ein Fehler ist  aufgetreten");
+            return HttpResponse.serverError(ErrorMessage.GENERIC_ERROR.getMessage());
         }
     }
 
     @Get("/state/{state}")
-    public HttpResponse<?> getOrderListByStatus(final String state) {
+    public HttpResponse<Object> getOrderListByStatus(final String state) {
         try {
             OrderFilter filter = new OrderFilter(OrderFilterField.STATUS, state);
             ServiceCaller caller = new ServiceCaller();
             return caller.callService(communication, filter, ROUTE_ORDER_LIST);
         } catch (Exception e) {
-            return HttpResponse.serverError("Ein Fehler ist  aufgetreten");
+            return HttpResponse.serverError(ErrorMessage.GENERIC_ERROR.getMessage());
         }
     }
 
 
     @Put("/")
-    public HttpResponse<?> createOrder(@Body String body){
+    public HttpResponse<Object> createOrder(@Body String body){
         try {
             String responseJson = this.communication.syncCall(ROUTE_ORDER_CREATE, body);
             ObjectMapper mapper = new ObjectMapper();
@@ -103,14 +104,15 @@ public class OrderController {
             }
             else {
                 LOG.error(response.getData());
-                return HttpResponse.serverError("Ein Fehler ist aufgetreten");
+                return HttpResponse.serverError(ErrorMessage.GENERIC_ERROR.getMessage());
             }
         } catch (InterruptedException e) {
             LOG.error(e.getMessage());
-            return HttpResponse.serverError("Ein Fehler ist aufgetreten");
+            Thread.currentThread().interrupt();
+            return HttpResponse.serverError(ErrorMessage.GENERIC_ERROR.getMessage());
         } catch (IOException e) {
             LOG.error(e.getMessage());
-            return HttpResponse.serverError("Ein Fehler ist aufgetreten");
+            return HttpResponse.serverError(ErrorMessage.GENERIC_ERROR.getMessage());
         }
     }
 }

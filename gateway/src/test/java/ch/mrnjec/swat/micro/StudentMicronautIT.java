@@ -1,22 +1,21 @@
 
 package ch.mrnjec.swat.micro;
 
+import io.micronaut.context.ApplicationContext;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.client.HttpClient;
+import io.micronaut.runtime.server.EmbeddedServer;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import io.micronaut.context.ApplicationContext;
-import io.micronaut.http.HttpRequest;
-import io.micronaut.http.MediaType;
-import io.micronaut.http.client.HttpClient;
-import io.micronaut.runtime.server.EmbeddedServer;
-
 /**
  * Testcases für Student Service. Verwendet Micronaut.io.
  */
 final class StudentMicronautIT {
+    private static final String API = "/api/v1/students";
 
     private static EmbeddedServer server;
     private static HttpClient client;
@@ -39,24 +38,24 @@ final class StudentMicronautIT {
 
     @Test
     @Disabled
-    public void testGetStudentOne() throws Exception {
-        final HttpRequest<String> request = HttpRequest.GET("/api/v1/students/1");
+    public void testGetStudentOne() {
+        final HttpRequest<String> request = HttpRequest.GET(API + "/1");
         final String body = client.toBlocking().retrieve(request);
         Assertions.assertThat(body).contains("\"lastName\":\"Grone\"");
     }
 
     @Test
     @Disabled
-    public void testGetStudentTwo() throws Exception {
-        final HttpRequest<String> request = HttpRequest.GET("/api/v1/students/2");
+    public void testGetStudentTwo() {
+        final HttpRequest<String> request = HttpRequest.GET(API + "/2");
         final String body = client.toBlocking().retrieve(request);
         Assertions.assertThat(body).contains("\"lastName\":\"Zweifel\"");
     }
 
     @Test
     @Disabled
-    public void testStudentSearch() throws Exception {
-        final HttpRequest<String> request = HttpRequest.GET("/api/v1/students?lastname=Zweifel");
+    public void testStudentSearch() {
+        final HttpRequest<String> request = HttpRequest.GET(API + "?lastname=Zweifel");
         final String body = client.toBlocking().retrieve(request);
         Assertions.assertThat(body).contains("\"lastName\":\"Zweifel\"");
     }

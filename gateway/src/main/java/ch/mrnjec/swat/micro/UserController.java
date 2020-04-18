@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @Put("/")
-    public HttpResponse<?> create(@Body String body){
+    public HttpResponse<Object> create(@Body String body){
         try {
             String json = this.rabbitMQCommunication.syncCall(ROUTE_USER_CREATE, body);
             ObjectMapper mapper = new ObjectMapper();
@@ -35,14 +35,15 @@ public class UserController {
                 return HttpResponse.badRequest("User konnte nicht erstellt werden");
             }
             else {
-                return HttpResponse.serverError("Internal Server error");
+                return HttpResponse.serverError(ErrorMessage.INTERNAL_SERVER_ERROR.getMessage());
             }
         } catch (IOException e) {
             LOG.error(e.getMessage());
-            return HttpResponse.serverError("Internal Server error");
+            return HttpResponse.serverError(ErrorMessage.INTERNAL_SERVER_ERROR.getMessage());
         } catch (InterruptedException e) {
             LOG.error(e.getMessage());
-            return HttpResponse.serverError("Internal Server error");
+            Thread.currentThread().interrupt();
+            return HttpResponse.serverError(ErrorMessage.INTERNAL_SERVER_ERROR.getMessage());
         }
     }
 }

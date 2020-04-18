@@ -14,13 +14,12 @@ import io.micronaut.test.annotation.MicronautTest;
 import io.micronaut.test.annotation.MockBean;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
-import javax.inject.Inject;
 
+import javax.inject.Inject;
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @MicronautTest
@@ -39,7 +38,7 @@ class UserControllerTest {
     }
 
     @Test
-    void testCreateUser() throws IOException, InterruptedException, TimeoutException {
+    void testCreateUser() throws IOException, InterruptedException {
         Response response = new Response(Status.OK, "created", "");
         ObjectMapper mapper = new ObjectMapper();
         String responseString = mapper.writeValueAsString(response);

@@ -4,6 +4,7 @@ package ch.mrnjec.swat.micro;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Version;
@@ -35,7 +36,7 @@ final class StudentTestContainerIT {
 
     @Test
     @Disabled
-    void testGetStudentTwoJson() throws Exception {
+    void testGetStudentTwoJson() throws IOException, InterruptedException {
         final ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
                     false);
         final HttpClient httpClient = HttpClient.newBuilder().version(Version.HTTP_2).build();

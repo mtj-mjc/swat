@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class ServiceCaller {
 
-    public HttpResponse<?> callService(Communication rabbitMQCommunication, Filter filter, String route) throws IOException, InterruptedException {
+    public HttpResponse<Object> callService(Communication rabbitMQCommunication, Filter filter, String route) throws IOException, InterruptedException {
         ObjectMapper mapper = new ObjectMapper();
         String filterJson = mapper.writeValueAsString(filter);
         String json = rabbitMQCommunication.syncCall(route, filterJson);
@@ -19,14 +19,14 @@ public class ServiceCaller {
         return getHttpResponse(response);
     }
 
-    public HttpResponse<?> callService(Communication rabbitMQCommunication, String route, String message) throws IOException, InterruptedException {
+    public HttpResponse<Object> callService(Communication rabbitMQCommunication, String route, String message) throws IOException, InterruptedException {
         ObjectMapper mapper = new ObjectMapper();
         String json = rabbitMQCommunication.syncCall(route, message);
         Response response = mapper.readValue(json, Response.class);
         return getHttpResponse(response);
     }
 
-    private HttpResponse<?> getHttpResponse(Response response){
+    private HttpResponse<Object> getHttpResponse(Response response){
         return HttpResponse.status(HttpStatus.valueOf(response.getStatus().getValue()), response.getReason()).body(response.getData());
     }
 }

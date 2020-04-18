@@ -9,7 +9,7 @@ import java.util.Objects;
  * @author: matej
  */
 public class Group {
-    public final static String NOID = "-1";
+    public static final String NOID = "-1";
     private String id;
     private String name;
 
