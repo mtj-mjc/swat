@@ -24,7 +24,7 @@ class AdapterFactoryTest {
     void getOrderAdapterTest() throws IOException {
         AdapterFactory factory = new AdapterFactory();
         Class<Sortiment> entity = Sortiment.class;
-        EntityAdapter adapter = factory.getAdapter(entity);
+        EntityAdapter<Sortiment> adapter = factory.getAdapter(entity);
         assertTrue(adapter instanceof SortimentAdapter);
         assertTrue(adapter.getMongoAdapter().getType().equals(entity));
     }
@@ -36,7 +36,7 @@ class AdapterFactoryTest {
     void getProductAdapterTest() throws IOException {
         AdapterFactory factory = new AdapterFactory();
         Class<Product> entity = Product.class;
-        EntityAdapter adapter = factory.getAdapter(entity);
+        EntityAdapter<Product> adapter = factory.getAdapter(entity);
         assertTrue(adapter instanceof ProductAdapter);
         assertTrue(adapter.getMongoAdapter().getType().equals(entity));
     }
@@ -48,7 +48,7 @@ class AdapterFactoryTest {
     void getCategoryAdapterTest() throws IOException {
         AdapterFactory factory = new AdapterFactory();
         Class<Category> entity = Category.class;
-        EntityAdapter adapter = factory.getAdapter(entity);
+        EntityAdapter<Category> adapter = factory.getAdapter(entity);
         assertTrue(adapter instanceof CategoryAdapter);
         assertTrue(adapter.getMongoAdapter().getType().equals(entity));
     }

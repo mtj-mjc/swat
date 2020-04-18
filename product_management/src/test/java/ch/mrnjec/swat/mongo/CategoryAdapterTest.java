@@ -14,7 +14,7 @@ import java.util.List;
  */
 class CategoryAdapterTest extends EntityAdapterExtendedTest<Category> {
     public static final String TEST_STR = "Test";
-    public final static String NOID = "000000000000000000000000";
+    public static final String NOID = "000000000000000000000000";
     public static final ObjectId TEST_ID = new ObjectId(NOID);
 
     /**

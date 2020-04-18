@@ -73,16 +73,11 @@ public abstract class EntityAdapterExtendedTest<T extends Entity> extends Entity
      */
     @Test
     void getByIdFails() throws IOException {
-        // Create Test Data
-        T testGroup = getTestEntity();
-
         MongoAdapter<T> mongoAdapter = mock(MongoAdapter.class);
         when(mongoAdapter.getOne(ArgumentMatchers.any(Bson.class))).thenThrow(new NoSuchElementException());
 
         // Test exists Method in Adapter
         EntityAdapterExtended<T> adapter = getTestEntityAdapter(mongoAdapter);
-        assertThrows(NoSuchElementException.class, () -> {
-            adapter.getById(getId().toString());
-        });
+        assertThrows(NoSuchElementException.class, () -> adapter.getById(getId().toString()));
     }
 }

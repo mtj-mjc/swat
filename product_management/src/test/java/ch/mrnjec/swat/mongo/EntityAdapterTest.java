@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  * @since: 21.05.2019
  * @author: matej
  */
-abstract public class EntityAdapterTest<T extends Entity> {
+public abstract class EntityAdapterTest<T extends Entity> {
     /**
      * Gets a instance of Entity for Tests
      * @return Entity
@@ -210,9 +210,7 @@ abstract public class EntityAdapterTest<T extends Entity> {
 
         // Test create Method in UserAdapter
         EntityAdapter<T> adapter = getTestEntityAdapter(mongoAdapter);
-        assertThrows(IOException.class, () -> {
-            adapter.create(getTestEntity());
-        });
+        assertThrows(IOException.class, () -> adapter.create(getTestEntity()));
     }
 
     /**
@@ -255,8 +253,6 @@ abstract public class EntityAdapterTest<T extends Entity> {
 
         // Test remove Method in UserAdapter
         EntityAdapter<T> adapter = getTestEntityAdapter(mongoAdapter);
-        assertThrows(IOException.class, () -> {
-            adapter.remove(getTestEntity());
-        });
+        assertThrows(IOException.class, () -> adapter.remove(getTestEntity()));
     }
 }

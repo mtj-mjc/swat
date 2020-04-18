@@ -104,7 +104,7 @@ public final class Service implements AutoCloseable {
         }
 
         Response response;
-        if (unavailableProducts.size() > 0 || nonExistingProducts.size() > 0) {
+        if (!unavailableProducts.isEmpty() || !nonExistingProducts.isEmpty())  {
             ProductsUnavailableResponseContent responseContent = new ProductsUnavailableResponseContent(order.getId());
             responseContent.setUnavailableProducts(unavailableProducts);
             responseContent.setNonExistingProducts(nonExistingProducts);

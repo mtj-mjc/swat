@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 public class SortimentAdapter implements EntityAdapterExtended<Sortiment> {
     private MongoAdapter<Sortiment> mongoAdapter;
 
-    SortimentAdapter(MongoAdapter mongoAdapter) {
+    SortimentAdapter(MongoAdapter<Sortiment> mongoAdapter) {
         this.mongoAdapter = mongoAdapter;
         this.mongoAdapter.changeCollection(MongoDbConfig.DATABASE, MongoDbConfig.SORTIMENT_COLLECTION);
     }
@@ -28,7 +28,7 @@ public class SortimentAdapter implements EntityAdapterExtended<Sortiment> {
      * @param sortiment Sortiment which has to be checked
      * @return If found then true else false
      */
-    public Boolean exists(Sortiment sortiment){
+    public boolean exists(Sortiment sortiment){
         try{
             getByName(sortiment.getName());
         }

@@ -23,7 +23,7 @@ import static org.mockito.Mockito.times;
  */
 class ProductAdapterTest extends EntityAdapterExtendedTest<Product> {
     public static final String TEST_STR = "Test";
-    public final static String NOID = "000000000000000000000000";
+    public static final String NOID = "000000000000000000000000";
     public static final ObjectId TEST_ID = new ObjectId(NOID);
     public static final double TEST_PRICE = 100.00;
     public static final int TEST_QUANTITY = 100;
@@ -94,8 +94,6 @@ class ProductAdapterTest extends EntityAdapterExtendedTest<Product> {
 
         // Test update Method in UserAdapter
         ProductAdapter adapter = new ProductAdapter(mongoAdapter);
-        assertThrows(IOException.class, () -> {
-            adapter.bookProduct(getTestEntity(), TEST_QUANTITY);
-        });
+        assertThrows(IOException.class, () -> adapter.bookProduct(getTestEntity(), TEST_QUANTITY));
     }
 }

@@ -22,11 +22,11 @@ public final class Application {
      * @param args not used.
      */
     public static void main(final String[] args) {
-        final Logger LOG = LogManager.getLogger(Application.class);
-        try {
-            Service service = new Service();
+        final Logger log = LogManager.getLogger(Application.class);
+        try (Service service = new Service()) {
+            log.info("Started Service...");
         } catch (IOException | TimeoutException e) {
-            LOG.error(e);
+            log.error(e);
         }
     }
 }

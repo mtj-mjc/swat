@@ -19,7 +19,7 @@ public final class ProductAdapter implements EntityAdapterExtended<Product> {
     private MongoAdapter<Product> mongoAdapter;
 
 
-    ProductAdapter(MongoAdapter mongoAdapter) {
+    ProductAdapter(MongoAdapter<Product> mongoAdapter) {
         this.mongoAdapter = mongoAdapter;
         this.mongoAdapter.changeCollection(MongoDbConfig.DATABASE, MongoDbConfig.PRODUCTS_COLLECTION);
     }
@@ -34,7 +34,7 @@ public final class ProductAdapter implements EntityAdapterExtended<Product> {
      * @param product Product which has to be checked
      * @return If found then true else false
      */
-    public Boolean exists(Product product){
+    public boolean exists(Product product){
         try{
             getById(product.getId().toString());
         }
