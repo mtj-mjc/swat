@@ -1,7 +1,5 @@
 package ch.mrnjec.swat.bus;
 
-import com.rabbitmq.client.impl.AMQBasicProperties;
-
 import java.io.IOException;
 
 /**

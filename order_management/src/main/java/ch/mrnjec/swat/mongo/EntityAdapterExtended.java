@@ -34,7 +34,7 @@ public interface EntityAdapterExtended<T extends Entity> extends EntityAdapter<T
      * @return Entity with the ID
      * @throws NoSuchElementException If no Entity is found
      */
-    default T getById(String id) throws NoSuchElementException{
+    default T getById(String id) {
         return getOneBy(Filters.eq(getIdField(), new ObjectId(id)));
     }
 }

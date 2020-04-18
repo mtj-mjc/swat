@@ -25,7 +25,7 @@ public class OrderAdapter implements EntityAdapterExtended<Order> {
 
     private MongoAdapter<Order> mongoAdapter;
 
-    OrderAdapter(MongoAdapter mongoAdapter) {
+    OrderAdapter(MongoAdapter<Order> mongoAdapter) {
         this.mongoAdapter = mongoAdapter;
         this.mongoAdapter.changeCollection(MongoDbConfig.DATABASE, MongoDbConfig.ORDER_COLLECTION);
     }
@@ -41,7 +41,7 @@ public class OrderAdapter implements EntityAdapterExtended<Order> {
      * @param order Order which has to be checked
      * @return If found then true else false
      */
-    public Boolean exists(Order order){
+    public boolean exists(Order order){
         try{
             getById(order.getId().toString());
         }

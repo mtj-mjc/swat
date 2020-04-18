@@ -49,8 +49,8 @@ public final class Service implements AutoCloseable {
         this.registerRoute(ROUTE_PRODUCTS_UNAVAILABLE, this::onProductsUnavailable);
     }
 
-    private void onProductHello(String message, String replyTo, String correlationId) throws IOException {
-        System.out.println(message);
+    private void onProductHello(String message, String replyTo, String correlationId) {
+        LOG.info(message);
     }
 
     /**
@@ -95,7 +95,7 @@ public final class Service implements AutoCloseable {
             createRequests.add(request);
             this.orderService.createOrder(order);
             String orderJson = mapper.writeValueAsString(order);
-            bus.talkAsync(this.exchangeName, this.ROUTE_ORDER_CREATED, orderJson);
+            bus.talkAsync(this.exchangeName, ROUTE_ORDER_CREATED, orderJson);
         } catch (IOException ex) {
             if (request != null) {
                 createRequests.remove(request);

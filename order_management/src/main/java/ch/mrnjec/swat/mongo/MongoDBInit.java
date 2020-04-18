@@ -29,8 +29,9 @@ public class MongoDBInit {
 
     private static void deleteDatabase(String name){
         MongoDbConfig config = new MongoDbConfig();
-        MongoClient mongoClient = new MongoClient(new MongoClientURI(config.getConnectionAddress()));
-        mongoClient.getDatabase(name).drop();
+        try (MongoClient mongoClient = new MongoClient(new MongoClientURI(config.getConnectionAddress()))) {
+            mongoClient.getDatabase(name).drop();
+        }
     }
 
     public static void createOrder() throws IOException {

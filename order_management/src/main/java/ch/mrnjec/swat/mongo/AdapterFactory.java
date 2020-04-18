@@ -36,7 +36,7 @@ public final class AdapterFactory {
      * @throws IOException If a Error occures while instantiating
      */
     public final <T extends Entity> EntityAdapter getAdapter(Class<T> entity) throws IOException{
-        MongoAdapter<T> adapter = new MongoAdapter<T>(mongoClient);
+        MongoAdapter<T> adapter = new MongoAdapter<>(mongoClient);
         adapter.setType(entity);
         try {
             return adapterMap.get(entity).getDeclaredConstructor(MongoAdapter.class).newInstance(adapter);

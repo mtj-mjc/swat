@@ -22,43 +22,50 @@ import java.util.concurrent.TimeoutException;
 import static org.mockito.Mockito.*;
 
 class ServiceTest {
+    private static final String CUSTOMER = "customer";
+    private static final String STORE = "store";
+    private static final String REPLY_TO = "replyTo";
+    private static final String CORRELATION_ID = "correlationId";
+    private static final String USER = "user";
+    private static final String APPE = "appe";
+
 
     @Test
-    public void TestOnOrderCreate() throws IOException, InterruptedException, TimeoutException {
+    public void testOnOrderCreate() throws IOException, TimeoutException {
         BusConnector bus = mock(BusConnector.class);
         OrderService orderService = mock(OrderService.class);
         doNothing().when(orderService).createOrder(any(Order.class));
         Service service = new Service(bus, orderService);
-        Order order = new Order(new ObjectId(), new ArrayList<OrderPosition>(), "user", "customer", "store", new Date(), State.PENDING);
+        Order order = new Order(new ObjectId(), new ArrayList<OrderPosition>(), USER, CUSTOMER, STORE, new Date(), State.PENDING);
         ObjectMapper mapper = new ObjectMapper();
         String orderJson = mapper.writeValueAsString(order);
-        service.onOrderCreate(orderJson, "replyTo", "correlationId");
-        verify(bus, times(1)).talkAsync("appe", "order.created", orderJson);
+        service.onOrderCreate(orderJson, REPLY_TO, CORRELATION_ID);
+        verify(bus, times(1)).talkAsync(APPE, "order.created", orderJson);
     }
 
     @Test
-    public void TestOnOrderCreateException() throws IOException, TimeoutException {
+    public void testOnOrderCreateException() throws IOException, TimeoutException {
         BusConnector bus = mock(BusConnector.class);
         OrderService orderService = mock(OrderService.class);
         doThrow(new IOException()).when(orderService).createOrder(any(Order.class));
         Service service = new Service(bus, orderService);
-        Order order = new Order(new ObjectId(), new ArrayList<OrderPosition>(), "user", "customer", "store", new Date(), State.PENDING);
+        Order order = new Order(new ObjectId(), new ArrayList<OrderPosition>(), USER, CUSTOMER, STORE, new Date(), State.PENDING);
         ObjectMapper mapper = new ObjectMapper();
         String orderJson = mapper.writeValueAsString(order);
-        service.onOrderCreate(orderJson, "replyTo", "correlationId");
+        service.onOrderCreate(orderJson, REPLY_TO, CORRELATION_ID);
         Response response = new Response(Status.BAD_REQUEST, "", "Order data is not correct");
         String responseJson = mapper.writeValueAsString(response);
-        verify(bus, times(1)).talkAsync("appe", "replyTo", responseJson, "correlationId");
+        verify(bus, times(1)).talkAsync(APPE, REPLY_TO, responseJson, CORRELATION_ID);
     }
 
     @Test
-    public void TestOnOrderList() throws IOException, TimeoutException {
+    public void testOnOrderList() throws IOException, TimeoutException {
         BusConnector bus = mock(BusConnector.class);
         OrderService orderService = mock(OrderService.class);
         OrderPosition position = new OrderPosition(new Product(new ObjectId(), "product", "desc", 55.0, "sortiment", "dfd"), 4);
         List<OrderPosition> positions = new ArrayList<>();
         positions.add(position);
-        Order order = new Order(new ObjectId(), positions, "user", "customer", "store", new Date(), State.PENDING);
+        Order order = new Order(new ObjectId(), positions, USER, CUSTOMER, STORE, new Date(), State.PENDING);
         List<Order> orders = new ArrayList<>();
         orders.add(order);
         ObjectMapper mapper = new ObjectMapper();
@@ -67,10 +74,10 @@ class ServiceTest {
         String filterJson = mapper.writeValueAsString(filter);
 
         Service service = new Service(bus, orderService);
-        service.onOrderList(filterJson, "replyTo", "correlationId");
+        service.onOrderList(filterJson, REPLY_TO, CORRELATION_ID);
         String responseOrderJson = mapper.writeValueAsString(orders);
         Response response = new Response(Status.OK, responseOrderJson, "");
         String responseJson = mapper.writeValueAsString(response);
-        verify(bus, times(1)).talkAsync("appe", "replyTo", responseJson, "correlationId");
+        verify(bus, times(1)).talkAsync(APPE, REPLY_TO, responseJson, CORRELATION_ID);
     }
 }

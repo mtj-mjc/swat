@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
  * Test method for {@link RabbitMqConfig}.
  */
 final class RabbitMqConfigTest {
+    private static final String RABBITMQ_PROPERTIES = "rabbitmq.test.properties";
 
     /**
      * Test method for {@link RabbitMqConfig#getHost()}.
      */
     @Test
     void testGetHost() {
-        assertThat(new RabbitMqConfig("rabbitmq.test.properties").getHost()).isEqualTo("1111");
+        assertThat(new RabbitMqConfig(RABBITMQ_PROPERTIES).getHost()).isEqualTo("1111");
     }
 
     /**
@@ -22,7 +23,7 @@ final class RabbitMqConfigTest {
      */
     @Test
     void testGetUsername() {
-        assertThat(new RabbitMqConfig("rabbitmq.test.properties").getUsername()).isEqualTo("2222");
+        assertThat(new RabbitMqConfig(RABBITMQ_PROPERTIES).getUsername()).isEqualTo("2222");
     }
 
     /**
@@ -30,7 +31,7 @@ final class RabbitMqConfigTest {
      */
     @Test
     void testGetPassword() {
-        assertThat(new RabbitMqConfig("rabbitmq.test.properties").getPassword()).isEqualTo("3333");
+        assertThat(new RabbitMqConfig(RABBITMQ_PROPERTIES).getPassword()).isEqualTo("3333");
     }
 
     /**
@@ -38,7 +39,7 @@ final class RabbitMqConfigTest {
      */
     @Test
     void testGetExchange() {
-        assertThat(new RabbitMqConfig("rabbitmq.test.properties").getExchange()).isEqualTo("4444");
+        assertThat(new RabbitMqConfig(RABBITMQ_PROPERTIES).getExchange()).isEqualTo("4444");
     }
 
 }

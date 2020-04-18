@@ -22,10 +22,10 @@ import static org.mockito.Mockito.*;
  */
 class OrderAdapterTest extends EntityAdapterExtendedTest<Order> {
     public static final String TEST_STR = "Test";
-    public static final Date TEST_DATE = new Date();
+    protected static final Date TEST_DATE = new Date();
     public static final State TEST_STATE = State.NOT_AVAILABLE;
-    public static final List<OrderPosition> TEST_ORDER_POSITIONS = new ArrayList<>();
-    public final static String NOID = "000000000000000000000000";
+    protected static final List<OrderPosition> TEST_ORDER_POSITIONS = new ArrayList<>();
+    public static final String NOID = "000000000000000000000000";
     public static final ObjectId TEST_ID = new ObjectId(NOID);
 
     /**
@@ -167,9 +167,7 @@ class OrderAdapterTest extends EntityAdapterExtendedTest<Order> {
 
         // Test update Method in UserAdapter
         OrderAdapter adapter = new OrderAdapter(mongoAdapter);
-        assertThrows(IOException.class, () -> {
-            adapter.update(getTestEntity());
-        });
+        assertThrows(IOException.class, () -> adapter.update(getTestEntity()));
     }
 
     /**
@@ -196,8 +194,6 @@ class OrderAdapterTest extends EntityAdapterExtendedTest<Order> {
 
         // Test update Method in UserAdapter
         OrderAdapter adapter = new OrderAdapter(mongoAdapter);
-        assertThrows(IOException.class, () -> {
-            adapter.updateOrderState(getTestEntity().getId().toString(), TEST_STATE);
-        });
+        assertThrows(IOException.class, () -> adapter.updateOrderState(getTestEntity().getId().toString(), TEST_STATE));
     }
 }

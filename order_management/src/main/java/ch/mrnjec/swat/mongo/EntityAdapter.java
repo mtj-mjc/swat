@@ -52,7 +52,7 @@ public interface EntityAdapter<T extends Entity> {
      * @return Entity which match filter
      * @throws NoSuchElementException If no Entity is found
      */
-    default T getOneBy(Bson filter) throws NoSuchElementException{
+    default T getOneBy(Bson filter){
         try {
             return getMongoAdapter().getOne(filter);
         } catch (IOException e) {
@@ -68,9 +68,7 @@ public interface EntityAdapter<T extends Entity> {
      * @throws IOException if convert fails in MongoAdapter
      */
     default void create(T entity) throws IOException{
-        if(!exists(entity)){
-            getMongoAdapter().create(entity);
-        }
+        if(!exists(entity)) getMongoAdapter().create(entity);
     }
 
     /**
@@ -81,7 +79,8 @@ public interface EntityAdapter<T extends Entity> {
      */
     default void remove(T entity) throws IOException{
         if(exists(entity)){
-            if(!getMongoAdapter().remove(entity))
+            boolean isRemoved = getMongoAdapter().remove(entity);
+            if(!isRemoved)
                 throw new IOException(MongoDbConfig.REMOVE_NOT_ACKNOWLEDGED);
         }
     }
@@ -91,7 +90,7 @@ public interface EntityAdapter<T extends Entity> {
      * @param entity Entity which has to be checked
      * @return If found then true else false
      */
-    Boolean exists(T entity);
+    boolean exists(T entity);
 
     /**
      * Gets the MongoAdapter

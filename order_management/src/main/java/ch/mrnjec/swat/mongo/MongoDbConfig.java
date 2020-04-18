@@ -20,12 +20,12 @@ public class MongoDbConfig {
     private static final String CONFIG_FILE_NAME = "mongodb.properties";
 
     // MongoDB Values
-    public final static String DATABASE = "order_management";
-    public final static String ORDER_COLLECTION = "orders";
+    public static final String DATABASE = "order_management";
+    public static final String ORDER_COLLECTION = "orders";
 
     // Error Messages
-    public final static String UPDATE_NOT_ACKNOWLEDGED = "Update was not acknowledged from the Database";
-    public final static String REMOVE_NOT_ACKNOWLEDGED = "Remove was not acknowledged from the Database";
+    public static final String UPDATE_NOT_ACKNOWLEDGED = "Update was not acknowledged from the Database";
+    public static final String REMOVE_NOT_ACKNOWLEDGED = "Remove was not acknowledged from the Database";
 
     private final Properties properties = new Properties();
 

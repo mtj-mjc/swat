@@ -32,8 +32,7 @@ public class OrderService {
 
     public List<Order> getAllOrders() throws IOException {
         OrderAdapter adapter = (OrderAdapter) this.adapterFactory.getAdapter(Order.class);
-        List<Order> orders = adapter.getAll();
-        return orders;
+        return adapter.getAll();
     }
 
     public void completeOrder(String id) throws IOException {
