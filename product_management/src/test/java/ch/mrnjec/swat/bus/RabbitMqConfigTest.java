@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
  * Test method for {@link RabbitMqConfig}.
  */
 final class RabbitMqConfigTest {
-    private static final String RABBITMQ_PROPERTIES = "rabbitmq.test.properties"
+    private static final String RABBITMQ_PROPERTIES = "rabbitmq.test.properties";
 
     /**
      * Test method for {@link RabbitMqConfig#getHost()}.

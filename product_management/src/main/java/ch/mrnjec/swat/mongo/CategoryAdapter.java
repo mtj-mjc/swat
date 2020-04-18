@@ -28,7 +28,7 @@ public class CategoryAdapter implements EntityAdapterExtended<Category> {
      * @param category Category which has to be checked
      * @return If found then true else false
      */
-    public Boolean exists(Category category){
+    public boolean exists(Category category){
         try{
             getByName(category.getName());
         }
