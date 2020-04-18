@@ -14,8 +14,8 @@ deploy:
   api_key:
     secure: "ldbC9A8xWdd9hBxAPDid97S/7CTdN+TLwrdUXVFDiJO2pvjpsMuhdho0x6Af7Kza2PmzqGPoAEMeroWW5vKoSNiSGAEa9Lqa7aTldEFkOI21EAA9LC13VLV4IMRsMd1hpKaZEK9S85Z9HoxquY0WyABcdZKOD4WgzKq4Apr76efUvVmz5aTHNEnDFCnxvDrWDdA+WGIexazxcLNeyIsSZ6+AiUIvnNWgeSXXbRtiGMjT16NOEiUD+jI8E9hdCH9owL67xK5dcuUpCiL2q+w11cQkt0VfPjrfsFrwVAdf8QmSQXUSgKt52SOxVDjZWjbyz1tQzCX+TNb1z6Z2Ern9GSlysWjVcyx0mMmU3Ezjtzs2vShlJfGojFXItPGaox5lNxtU9RYHS1tvZ+g/loOKq+3FMMkUx59CrnZ9Qh/Hh2YemGEzximFkXkCHmdfLjhNfAmlBq+WO6iuQgBJBLeMQg3LTOcfKT0NO0MTZVLHNST15Pyqtkr/C7UIzScxPrMy2Z0TGCqCxzcGFhLmfn5zgjbYvzevItBZh0UDTpVEh0N3Z8dvWqMMtnJUAVHM3dVRdK6jnJy3JJpWSgUFAQxC8wJVZig7pBkvFzzLYO+WWUOK6RgZoWNe02DMFqOuomXIEicz2z/Mm8mGNjTsmwKWGuOICz03Trg3zEr9lG6dqUs="
   file: 
-    - gateway/target/*.jar
-    - order_management/target/*.jar
-    - product_management/target/*.jar
-    - user_management/target/*.jar
+    - "gateway/target/*.jar"
+    - "order_management/target/*.jar"
+    - "product_management/target/*.jar"
+    - "user_management/target/*.jar"
   skip_cleanup: true
