@@ -45,10 +45,17 @@
         <log4j2.version>2.11.2</log4j2.version>
         <rabbitmq.version>5.6.0</rabbitmq.version>
         <mongodb.version>3.4.3</mongodb.version>
+        <bus.version>1.0.0-SNAPSHOT</bus.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>ch.mrnjec.swat</groupId>
+                <artifactId>bus</artifactId>
+                <version>${bus.version}</version>
+                <scope>compile</scope>
+            </dependency>
             <dependency>
                 <groupId>com.rabbitmq</groupId>
                 <artifactId>amqp-client</artifactId>
