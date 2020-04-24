@@ -15,7 +15,7 @@ import java.util.concurrent.TimeoutException;
 /**
  * Beispielcode für Verbindung mit RabbitMQ.
  */
-final class BusConnector implements AutoCloseable {
+public final class BusConnector implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(BusConnector.class);
 
@@ -35,6 +35,20 @@ final class BusConnector implements AutoCloseable {
      */
     public void talkAsync(final String exchange, final String route, final String message) throws IOException {
         AMQP.BasicProperties props = new AMQP.BasicProperties();
+        channelTalk.basicPublish(exchange, route, props, message.getBytes(StandardCharsets.UTF_8));
+    }
+
+    /**
+     * asynchrone Kommunikation (Send) mit correlation id.
+     * @param exchange Exchange.
+     * @param route Route.
+     * @param message Message.
+     * @param correlationId Correlation ID.
+     * @throws IOException Exception.
+     */
+    public void talkAsync(final String exchange, final String route, final String message, String correlationId) throws IOException {
+        AMQP.BasicProperties props = new AMQP.BasicProperties.Builder().correlationId(correlationId)
+                .build();
         channelTalk.basicPublish(exchange, route, props, message.getBytes(StandardCharsets.UTF_8));
     }
 

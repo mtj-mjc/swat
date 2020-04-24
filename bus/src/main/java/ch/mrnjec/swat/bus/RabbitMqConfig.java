@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * Liest Konfiguration für RabbitMQ aus Propertyfile.
  */
-final class RabbitMqConfig {
+public final class RabbitMqConfig {
 
     private static final Logger LOG = LoggerFactory.getLogger(RabbitMqConfig.class);
     private static final String EXCHANGE = "exchange";
