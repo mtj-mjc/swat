@@ -32,7 +32,7 @@
         <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
         <sonar.jacoco.reportPath>${project.basedir}/../target/jacoco.exec</sonar.jacoco.reportPath>
         <sonar.language>java</sonar.language>
-        <bus.version>1.0.2-SNAPSHOT</bus.version>
+        <bus.version>1.0.2</bus.version>
     </properties>
 
     <dependencyManagement>
