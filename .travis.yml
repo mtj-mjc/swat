@@ -4,11 +4,11 @@ addons:
     organization: "mtj-mjc"
     token:
       secure: "Oa3o3WEzLSiVad6vvXEEV3DiFlXX70JSh/oqw3F9bczjta6VvYKeA/YDrTA4o7AHHRPLhm8jAb4kx23Sve7xNembhNym7XHRtvAuyBBAUqk5pwiyg4c2AKfhags+grQgCCl88E+jiI2A0zjmQtBFkBRWkdRuuh5LX0rtJCzG5DLsEfo9UynzFsqXAT7Lh2exJ38sx+QNooYDUpbnB7Fqi6/S+XEg6rPnBrTr0JF7zpeFFZGGjl0vJCcM7v+TL1UcfatHdTOsq05wi7pojzUCB1iIImzrDiqQNKUzbUsC/tfQZON4qMvUgkc33pLlr4XdFcYb2GMNDhDtc1XpuSc0P5q1drdcWOXyLRTC1/Hw3zDEZRQbJMgsI/eIM2E7Tz5sC9FFTtDwrzc5zPA0Oo47+yPrOSNIReGpuOlEfXubxXo77Oj7cQ7VGHRnkmJpO0TfEryt9ZCkq1TONGh1Houaq+BRGfPFo3kpVEBKiAcndPisfhOLh23U5vr9MKvursWcLRPyGIEe+Xh+qzwghaczGg8jNLy5zcfYoTq5uH/4vJP6AmWLPgjACxxyPsB6Sj938DOnujFwJ5lGofKCk+Gj3fIJU0/72ESZ76R6fi3ICUlWiJxYueAzKi0BLX8gdtVJmW5eWoS2u0ouCuUo8CHq168pa12a/1G7L6ZRY9W42yo=" # encrypted value of your token
-
-script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+before_install:
   - rm $HOME/.m2/settings.xml
   - mv .travis.settings.xml $HOME/.m2/settings.xml
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=mtj-mjc_swat deploy
 
 deploy:
