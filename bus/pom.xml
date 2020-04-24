@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.mrnjec.swat</groupId>
-    <artifactId>gateway</artifactId>
+    <artifactId>bus</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>gateway</name>
+    <name>bus</name>
     <description>
-        Gateway Microservice
+        Bus Package
     </description>
 
     <properties>
@@ -539,4 +539,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Matej Mrnjec Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/mtj-mjc/swat</url>
+        </repository>
+    </distributionManagement>
 </project>
